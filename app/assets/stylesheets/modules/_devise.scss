@@ -1,0 +1,138 @@
+.account_page {
+  .account_page__inner {
+    width: 482px;
+    margin: 0 auto;
+    padding: 40px 60px 10px;
+    background-color: #fff;
+    border: $border_style_input;
+    border-radius: 25px;
+  }
+
+  .account_page__header {
+    text-align: center;
+    h2 {
+      margin-bottom: 24px;
+      letter-spacing: 3px;
+      font-size: $font_size_h2;
+      font-weight: 200;
+    }
+
+    h5 {
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 200;
+    }
+
+    .btn {
+      margin-top: 20px;
+      color: #fff;
+      background-color: #ccc;
+      font-size: 14px;
+    }
+  }
+
+  .field {
+    margin-bottom: 16px;
+
+    .field_label {
+      padding: 10px 0;
+      letter-spacing: 1px;
+      font-size: 14px;
+      font-weight: 200;
+
+      i {
+        font-size: 11px;
+      }
+    }
+
+    .field_input {
+      input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-bottom: $border_style_input;
+        letter-spacing: 1px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .actions {
+    text-align: center;
+  }
+
+  .devise_links {
+    margin-top: 48px;
+    border-top: $border_style_input;
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-block;
+    height: 50px;
+    padding: 0 30px;
+    line-height: 50px;
+    letter-spacing: 1px;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
+  }
+
+  input[type='submit'] {
+    margin-top: 20px;
+    color: #fff;
+    background-color: #38aef0;
+  }
+
+  .field_label {
+    .field_with_errors {
+      display: inline-block;
+      color: #d65f4c;
+      font-weight: 400;
+    }
+  }
+
+  .field_input {
+    .field_with_errors {
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 5px;
+        background-color: #d65f4c;
+      }
+    }
+  }
+}
+
+#error_explanation {
+  margin: 20px 0;
+  padding: 20px 30px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+
+  h2 {
+    margin-bottom: 10px;
+    color: #d65f4c;
+    font-size: 14px;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 17px;
+    list-style: square;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+  }
+}

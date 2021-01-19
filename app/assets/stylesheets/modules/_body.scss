@@ -1,0 +1,49 @@
+.body {
+  overflow-x: hidden;
+}
+
+.notifications {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  color: white;
+  text-align: center;
+
+  .notice {
+    background-color: $color_notice;
+  }
+
+  .alert {
+    padding: 0;
+    background-color: $color_alert;
+  }
+}
+
+.wrapper {
+  height: 100%;
+  min-height: calc(100vh - 176px);
+  min-width: $fix_width;
+  margin-top: 112px;
+}
+
+.vali_alert {
+  margin-bottom: 24px;
+  padding: 12px;
+  border: 2px solid #990000;
+  text-align: center;
+  font-weight: 850;
+  background: #ffebe8;
+}
+
+.breadcrumbs {
+  display: flex;
+  position: fixed;
+  top: 64px;
+  height: 24px;
+  margin: 12px 0;
+  z-index: 2;
+  .fa-home {
+    margin-right: 4px;
+  }
+}

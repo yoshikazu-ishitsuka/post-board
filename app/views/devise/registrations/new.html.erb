@@ -1,7 +1,7 @@
 <div id="account_page" class="account_page">
   <div class="account_page__inner">
     <div class="account_page__header">
-      <h2>掲示板</h2>
+      <h2>掲示板アプリ</h2>
       <h5>新規登録</h5>
     </div>
     <div class="account_page__inner--user_form">
@@ -10,21 +10,18 @@
 
         <div class="field">
           <div class="field_input">
-            <%= f.label :name %><br>
             <%= f.text_field :name, autofocus: true, placeholder: '名前' %>
           </div>
         </div>
 
         <div class="field">
           <div class="field_input">
-            <%= f.label :email %><br />
             <%= f.email_field :email, autocomplete: "email", placeholder: 'メールアドレス' %>
           </div>
         </div>
 
         <div class="field">
           <div class="field_input">
-            <%= f.label :password %>
             <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
             <% end %><br />
@@ -34,7 +31,6 @@
 
         <div class="field">
           <div class="field_input">
-            <%= f.label :password_confirmation %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'パスワード(確認用)' %>
           </div>
         </div>

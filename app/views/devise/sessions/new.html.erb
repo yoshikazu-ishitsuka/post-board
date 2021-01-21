@@ -5,6 +5,7 @@
     </div>
     <div class="account_page__inner--right user-form">    
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
         <div class="field">
           <div class="field_input">
             <%#= f.label :email %>

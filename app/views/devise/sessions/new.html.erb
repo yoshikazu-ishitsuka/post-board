@@ -1,0 +1,32 @@
+<div id="account_page" class="account_page">
+  <div class="account_page__inner">
+    <div class="account_page__inner--left account_page__header">
+      <h2>掲示板アプリ</h2>
+    </div>
+    <div class="account_page__inner--right user-form">    
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="field">
+          <div class="field_input">
+            <%#= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス' %>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field_input">
+            <%#= f.label :password %>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード' %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "ログイン", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="devise_links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

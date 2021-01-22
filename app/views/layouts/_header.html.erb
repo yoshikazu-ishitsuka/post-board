@@ -1,0 +1,31 @@
+<header class="header">
+  <div class="header__bar">
+    <h1>
+      <%= link_to root_path do %>
+        <span>掲示板アプリ</span>
+      <% end %>
+    </h1>
+    <ul class="header__bar__user_nav">
+      <li class="user_name">
+        <span>ユーザーさん</span>
+      </li>
+      <li class="header__bar__user_nav__btn">
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      </li>
+      <li class="header__bar__user_nav__btn">
+        <%= link_to '投稿する', new_post_path, method: :get %>
+      </li>
+    </ul>
+    <ul class="header__bar__user_nav">
+      <li class="header__bar__user_nav__btn">
+        <span>ゲストログイン</span>
+      </li>
+      <li class="header__bar__user_nav__btn">
+        <%= link_to 'ログイン', new_user_session_path, method: :get %>
+      </li>
+      <li class="header__bar__user_nav__btn">
+        <%= link_to '新規登録', new_user_registration_path, method: :get %>
+      </li>
+    </ul>
+  </div>
+</header>

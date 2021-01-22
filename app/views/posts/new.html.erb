@@ -1,0 +1,21 @@
+<div class="post_wrapper">
+  <div class="post_wrapper__content">
+    <div class="post_wrapper__content__post_form">
+      <h3>
+        <span>新規投稿</span>
+      </h3>
+        <%= form_with model: @post, local: true, html: { class: "form_area" } do |f| %>
+          <div class="form_area__field">
+            <%= render 'layouts/error_messages',  model: f.object %>
+            <%= f.text_area :text, id: "post_text", placeholder: "投稿内容を入力", row: 10 %>
+              <div class="form_area__hidden_field">
+                <%= hidden_field :post, :user_id, value: current_user.id %>
+              </div>
+              <div class="form_area__action">
+                <%= f.submit "投稿", class: "form_area__aciton__btn" %>
+              </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

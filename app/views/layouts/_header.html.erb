@@ -7,7 +7,7 @@
     </h1>
     <ul class="header__bar__user_nav">
       <li class="user_name">
-        <span>ユーザーさん</span>
+        <span><%= current_user.name %>さん</span>
       </li>
       <li class="header__bar__user_nav__btn">
         <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>

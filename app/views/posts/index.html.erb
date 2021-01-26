@@ -6,37 +6,44 @@
   </div>
   <div class="post_wrapper__content">
     <ul class="post_wrapper__content__post_list">
-      <h3><span>まだ投稿されたスレッドはありません。</span></h3>
-      <li>
-      <div class="post">
-        <div class="post__top_box">
-          <div class="post__top_box__name">
-            <span>投稿者</span>
+      <% if @posts.blank? %>
+        <h3><span>まだ投稿されたスレッドはありません。</span></h3>
+      <% else %>
+        <% @posts.each do |post| %>
+          <li>
+          <div class="post">
+            <div class="post__top_box">
+              <div class="post__top_box__name">
+                <span>投稿者：<%= post.user.name %></span>
+              </div>
+              <div class="post__top_box__time">
+                <span>投稿日時：<%= post.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+              </div>
+            </div>
+            <div class="post__middle_box">
+              <span><%= post.text %> </span>
+            </div>
+            <div class="post__bottom_box">
+              <ul class="post__bottom_box__user_actions">
+                <li>
+                  <i class="far fa-comment-alt"></i>
+                  <span></span>
+                </li>
+                <li>
+                  <i class="far fa-heart"></i>
+                </li>
+              </ul>
+              <ul class="post__bottom_box__admin_actions">
+                <% if user_signed_in? && current_user.id == post.user_id %>
+                  <li>編集</li>
+                  <li>削除</li>
+                <% end %>
+              </ul>
+            </div>
           </div>
-          <div class="post__top_box__time">
-            <span>投稿日時</span>
-          </div>
-        </div>
-        <div class="post__middle_box">
-          <span>スレッド</span>
-        </div>
-        <div class="post__bottom_box">
-          <ul class="post__bottom_box__user_actions">
-            <li>
-              <i class="far fa-comment-alt"></i>
-              <span></span>
-            </li>
-            <li>
-              <i class="fas fa-heart"></i>
-            </li>
-          </ul>
-          <ul class="post__bottom_box__admin_actions">
-            <li>編集</li>
-            <li>削除</li>
-          </ul>
-        </div>
-      </div>
-      </li>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </div>
 </div>

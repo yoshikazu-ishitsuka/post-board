@@ -5,27 +5,30 @@
         <span>掲示板アプリ</span>
       <% end %>
     </h1>
-    <ul class="header__bar__user_nav">
-      <li class="user_name">
-        <span><%= current_user.name %>さん</span>
-      </li>
-      <li class="header__bar__user_nav__btn">
-        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-      </li>
-      <li class="header__bar__user_nav__btn">
-        <%= link_to '投稿する', new_post_path, method: :get %>
-      </li>
-    </ul>
-    <ul class="header__bar__user_nav">
-      <li class="header__bar__user_nav__btn">
-        <span>ゲストログイン</span>
-      </li>
-      <li class="header__bar__user_nav__btn">
-        <%= link_to 'ログイン', new_user_session_path, method: :get %>
-      </li>
-      <li class="header__bar__user_nav__btn">
-        <%= link_to '新規登録', new_user_registration_path, method: :get %>
-      </li>
-    </ul>
+    <% if user_signed_in? %>
+      <ul class="header__bar__user_nav">
+        <li class="user_name">
+          <span><%= current_user.name %>さん</span>
+        </li>
+        <li class="header__bar__user_nav__btn">
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        </li>
+        <li class="header__bar__user_nav__btn">
+          <%= link_to '投稿する', new_post_path, method: :get %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="header__bar__user_nav">
+        <li class="header__bar__user_nav__btn">
+          <span>ゲストログイン</span>
+        </li>
+        <li class="header__bar__user_nav__btn">
+          <%= link_to 'ログイン', new_user_session_path, method: :get %>
+        </li>
+        <li class="header__bar__user_nav__btn">
+          <%= link_to '新規登録', new_user_registration_path, method: :get %>
+        </li>
+      </ul>
+    <% end %>
   </div>
 </header>

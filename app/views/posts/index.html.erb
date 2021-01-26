@@ -34,8 +34,10 @@
                 </li>
               </ul>
               <ul class="post__bottom_box__admin_actions">
-                <li>編集</li>
-                <li>削除</li>
+                <% if user_signed_in? && current_user.id == post.user_id %>
+                  <li>編集</li>
+                  <li>削除</li>
+                <% end %>
               </ul>
             </div>
           </div>

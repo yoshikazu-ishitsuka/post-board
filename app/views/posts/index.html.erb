@@ -34,9 +34,9 @@
                 </li>
               </ul>
               <ul class="post__bottom_box__admin_actions">
-                <% if user_signed_in? && current_user.id == post.user_id %>
-                  <li>編集</li>
-                  <li>削除</li>
+                <% if user_signed_in? && current_user.id == post.user_id %>                  
+                  <li><%= link_to '編集', edit_post_path(post.id) %></li>
+                  <li><%= link_to '削除', post_path(post.id), method: :delete, data: { confirm: "本当に削除しますか？", cancel: "やめる", commit: "削除", title: "削除の確認" } %></li>
                 <% end %>
               </ul>
             </div>

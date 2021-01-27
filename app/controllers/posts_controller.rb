@@ -24,7 +24,8 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:success] = "編集が完了しました"
+      flash[:info] = "編集が完了しました"
+      # flash: {success: "登録が完了しました"}
       redirect_to root_path
     else
       render :edit
@@ -33,6 +34,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    flash[:alert] = "削除が完了しました"
     redirect_to posts_url
   end
 

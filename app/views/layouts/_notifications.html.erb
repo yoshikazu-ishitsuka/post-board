@@ -1,6 +1,6 @@
 <%# フラッシュメッセージのテンプレートファイル %>
 <div class="notifications">
   <% flash.each do |message_type, message| %>
-    <div class="text-center alert alert-<%= message_type %>"><%= message %></div>
+    <div class="text-center <%= message_type%> alert-<%= message_type %>"><button type="button" class="close" data-dismiss="alert">&times;</button><%= message %></div>
   <% end %>
 </div>

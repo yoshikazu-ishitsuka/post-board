@@ -17,3 +17,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 // = require data-confirm-modal
+
+$(function(){
+  setTimeout("$('.message_type').fadeOut('slow')", 2000);
+});

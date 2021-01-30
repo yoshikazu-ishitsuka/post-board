@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(post_params)
     if @post.save
-      redirect_to root_path
+      redirect_to root_path, notice: "投稿が完了しました"
     else
       render :new
     end

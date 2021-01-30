@@ -20,7 +20,8 @@
     <% else %>
       <ul class="header__bar__user_nav">
         <li class="header__bar__user_nav__btn">
-          <span>ゲストログイン</span>
+          <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
+          <%# <span>ゲストログイン</span> %>
         </li>
         <li class="header__bar__user_nav__btn">
           <%= link_to 'ログイン', new_user_session_path, method: :get %>

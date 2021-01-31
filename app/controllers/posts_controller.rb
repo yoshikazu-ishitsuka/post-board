@@ -27,9 +27,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:info] = "編集が完了しました"
-      # flash: {success: "登録が完了しました"}
-      redirect_to root_path
+      redirect_to posts_url, flash: { notice: '編集が完了しました' }
     else
       render :edit
     end

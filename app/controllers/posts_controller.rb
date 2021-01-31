@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_post, only: [:edit, :update ,:destroy]
+  before_action :set_post, only: [:edit, :update ,:destroy, :show]
   
   def index
     @posts = Post.includes(:user).order(id: "DESC")
@@ -17,6 +17,9 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
   end
 
   def edit

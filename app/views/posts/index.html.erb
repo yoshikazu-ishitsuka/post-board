@@ -10,6 +10,7 @@
         <h3><span>まだ投稿されたスレッドはありません。</span></h3>
       <% else %>
         <% @posts.each do |post| %>
+        <%= link_to post_path(post), method: :get do %>
           <li>
           <div class="post">
             <div class="post__top_box">
@@ -42,6 +43,7 @@
             </div>
           </div>
           </li>
+        <% end %>
         <% end %>
       <% end %>
     </ul>

@@ -1,6 +1,9 @@
 <%# フラッシュメッセージのテンプレートファイル %>
 <div class="notifications">
   <% flash.each do |message_type, message| %>
-    <div class="message_type text-center <%= message_type %>"><%= message %></div>
+    <div class="message_type text-center <%= message_type %> alert-<%= message_type %>">
+    <%### alert-でflashのkeyを呼び出す、redirect_to noticeの時はこれは不要 %>
+      <%= message %>
+    </div>
   <% end %>
 </div>

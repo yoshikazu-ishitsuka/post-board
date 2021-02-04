@@ -20,6 +20,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comments = @post.comments.includes(:user).order(id: "DESC")
+    @comment = Comment.new ###current_user.comments.new
   end
 
   def edit

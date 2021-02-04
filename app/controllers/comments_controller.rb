@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_back(fallback_location: root_path)
     else
+      flash[:alert] = "コメントを（140文字以内で）入力してください。"
       redirect_back(fallback_location: root_path)
     end
   end

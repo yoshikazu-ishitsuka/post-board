@@ -28,7 +28,7 @@
           <ul class="post_detail__bottom_box__user_actions">
             <li>
               <i class="far fa-comment-alt"></i>
-              <span>コメント数</span>
+              <span><%= @comments.count %>件</span>
             </li>
             <li>
               <i class="far fa-heart"></i>
@@ -57,7 +57,7 @@
                 <div class="comment_area__list__comment__right_box__info">
                   <span>編集</span>
                   <span>削除</span>
-                  <span><%= comment.created_at %></span>
+                  <span><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
                 </div>
                 <div class="comment_area__list__comment__right_box__text">
                   <span><%= comment.text %></span>

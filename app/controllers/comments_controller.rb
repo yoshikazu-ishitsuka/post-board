@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comments = @post.comments.includes(:user).order(id: "DESC")
+    @comments = @post.comments.includes(:user).order(updated_at: "DESC", id: "DESC")
     render "posts/show"
   end
 
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
       ### success:green, alert:orange, notice:blue, info:light-blue, danger:red, warning:light-yellow
     else
       flash.now[:alert] = 'コメントを(140文字以内で)入力してください。'
-      @comments = @post.comments.includes(:user).order(id: "DESC")
+      @comments = @post.comments.includes(:user).order(updated_at: "DESC", id: "DESC")
       render "posts/show"
     end
   end
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     flash[:alert] = "削除が完了しました"
-    redirect_to root_path
+    redirect_to post_path(@post.id)
   end
 
   private

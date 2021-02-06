@@ -18,7 +18,7 @@
             <span>投稿者：<%= @post.user.name %></span>
           </div>
           <div class="post_detail__top_box__name">
-            <span>投稿日時： <%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+            <span>投稿日時： <%= @post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
           </div>
         </div>  
         <div class="post_detail__middle_box">
@@ -28,7 +28,7 @@
           <ul class="post_detail__bottom_box__user_actions">
             <li>
               <i class="far fa-comment-alt"></i>
-              <span><%= @comments.count %>件</span>
+              <span><%= @post.comments.count %>件</span>
             </li>
             <li>
               <i class="far fa-heart"></i>
@@ -55,9 +55,11 @@
               </div>
               <div class="comment_area__list__comment__right_box">
                 <div class="comment_area__list__comment__right_box__info">
-                  <span>編集</span>
-                  <span>削除</span>
-                  <span><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+                  <% if current_user.id == comment.user_id %>
+                    <span><%= link_to "編集", edit_post_comment_path(@post.id, comment.id), method: :get %></span>
+                    <span><%= link_to "削除", post_comment_path(@post.id, comment.id), method: :delete, data: { confirm: "本当に削除して良いですか？", cancel: "やめる", commit: "削除する" }, title: "削除確認"  %></span>
+                  <% end %>
+                  <span>投稿日時：<%= comment.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
                 </div>
                 <div class="comment_area__list__comment__right_box__text">
                   <span><%= comment.text %></span>
@@ -70,7 +72,7 @@
       <%# コメントのフォームを設置 %>
         <% if user_signed_in? %>
           <div class="comment_area__form_box">
-            <%= form_with model: [@post, @comment], class: 'comment_area__form_box__form', local: true, method: :post do |f| %>
+            <%= form_with model: [@post, @comment], class: 'comment_area__form_box__form', local: true do |f| %>
               <div class="comment_area__form_box__form__field">
                 <%= f.text_area :text, id: "comment_text", placeholder: "コメントを入力", autofocus: "autofocus", rows: 2 %>
               </div>

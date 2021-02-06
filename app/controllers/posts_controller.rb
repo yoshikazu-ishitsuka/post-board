@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update ,:destroy, :show]
   
   def index
-    @posts = Post.includes(:user).order(id: "DESC")
+    @posts = Post.includes(:user).order(updated_at: "DESC", id: "DESC")
   end
 
   def new
@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comments = @post.comments.includes(:user).order(id: "DESC")
+    @comments = @post.comments.includes(:user).order(updated_at: "DESC", id: "DESC")
     @comment = Comment.new ###current_user.comments.new
   end
 
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:alert] = "削除が完了しました"
-    redirect_to posts_url
+    redirect_to posts_url  ## root_path
   end
 
   private

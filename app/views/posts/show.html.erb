@@ -31,7 +31,7 @@
               <span><%= @post.comments.count %>件</span>
             </li>
             <li>
-                <% if current_user.already_liked?(@post) %>
+                <% if user_signed_in? && current_user.already_liked?(@post) %>
                   <%= link_to post_like_path(id: @post.id, post_id: @post.id), class: "post_action_btn post_liked", method: :delete do %>
                     <i class="fas fa-thumbs-up"></i>
                   <% end %>
@@ -65,7 +65,7 @@
               </div>
               <div class="comment_area__list__comment__right_box">
                 <div class="comment_area__list__comment__right_box__info">
-                  <% if current_user.id == comment.user_id %>
+                  <% if user_signed_in? && current_user.id == comment.user_id %>
                     <span><%= link_to "編集", edit_post_comment_path(@post.id, comment.id), method: :get %></span>
                     <span><%= link_to "削除", post_comment_path(@post.id, comment.id), method: :delete, data: { confirm: "本当に削除して良いですか？", cancel: "やめる", commit: "削除する" }, title: "削除確認"  %></span>
                   <% end %>

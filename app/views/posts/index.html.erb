@@ -31,7 +31,7 @@
                   <span><%= post.comments.count %>件</span>
                 </li>
                 <li>
-                <% if current_user.already_liked?(post) %>
+                <% if user_signed_in? && current_user.already_liked?(post) %>
                   <%= link_to post_like_path(id: post.id, post_id: post.id), class: "post_action_btn post_liked", method: :delete do %>
                     <%# <i class="far fa-heart"></i> %>
                     <i class="fas fa-thumbs-up"></i>

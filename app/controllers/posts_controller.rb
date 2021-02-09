@@ -22,6 +22,7 @@ class PostsController < ApplicationController
   def show
     @comments = @post.comments.includes(:user).order(updated_at: "DESC", id: "DESC")
     @comment = Comment.new ###current_user.comments.new
+    @like = Like.new
   end
 
   def edit

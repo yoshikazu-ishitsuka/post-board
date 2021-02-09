@@ -31,8 +31,18 @@
               <span><%= @post.comments.count %>件</span>
             </li>
             <li>
-              <i class="far fa-heart"></i>
-              <span>いいね数</span>
+                <% if current_user.already_liked?(@post) %>
+                  <%= link_to post_like_path(id: @post.id, post_id: @post.id), class: "post_action_btn post_liked", method: :delete do %>
+                    <i class="fas fa-thumbs-up"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to post_likes_path(@post), class: "post_action_btn", method: :post do %>
+                    <i class="far fa-thumbs-up"></i>
+                  <% end %>
+                <% end %>
+                  <span><%= @post.likes.count %></span>
+              <%# <i class="far fa-heart"></i>
+              <span>いいね数</span> %>
             </li>
           </ul>
           <div class="post_detail__bottom_box__admin_actions">

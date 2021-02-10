@@ -28,7 +28,7 @@
               <ul class="post__bottom_box__user_actions">
                 <li>
                   <i class="far fa-comment-alt"></i>
-                  <span><%= post.comments.count %>件</span>
+                  <span><%= post.comments.count %>&nbsp;件</span>
                 </li>
                 <li>
                 <% if user_signed_in? && current_user.already_liked?(post) %>
@@ -41,7 +41,7 @@
                     <i class="far fa-thumbs-up"></i>
                   <% end %>
                 <% end %>
-                  <span><%= post.likes.count %></span>
+                  <span><%= post.likes.count %>&nbsp;イイね！</span>
                 </li>
               </ul>
               <ul class="post__bottom_box__admin_actions">

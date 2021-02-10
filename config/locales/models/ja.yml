@@ -5,6 +5,7 @@ ja:
     attributes:
       user:
         id: ID
+        name: 名前
         created_at: 登録日時
         updated_at: 更新日時
         birthday: 生年月日

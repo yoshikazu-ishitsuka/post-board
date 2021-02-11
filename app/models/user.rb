@@ -26,6 +26,7 @@ class User < ApplicationRecord
   
   validates :password,
     presence: true,
+    confirmation: true,
     format: { with: VALID_PASSWORD_REGEX, message: :invalid_password, allow_blank: true }
 
 

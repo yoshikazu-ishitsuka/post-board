@@ -5,7 +5,7 @@ RSpec.describe Comment, type: :model do
     @comment = FactoryBot.build(:comment)
   end
 
-  describe '掲示板投稿機能' do
+  describe 'コメント投稿機能' do
     context 'commentが登録出来るとき' do
       it 'textが存在すれば登録出来ること' do
         expect(@comment).to be_valid

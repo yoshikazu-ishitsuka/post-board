@@ -11,3 +11,11 @@ ja:
         birthday: 生年月日
         email: メールアドレス
         password: パスワード
+    models:
+      post:
+    attributes:
+      post:
+        id: ID
+        text: 投稿内容
+        created_at: 登録日時
+        updated_at: 更新日時

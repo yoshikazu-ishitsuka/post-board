@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  VALID_EMAIL_REGEX = /\A[[a-z0-9_]+\-.]+@[a-z\d\-]+\.[a-z]+\z/
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,32}+\z/i
 
   validates :name, presence: true, length: { maximum: 20 }

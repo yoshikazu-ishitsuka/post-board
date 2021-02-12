@@ -2,11 +2,27 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      post: 投稿
+      comment: コメント
+
     attributes:
       user:
         id: ID
+        name: 名前
         created_at: 登録日時
         updated_at: 更新日時
         birthday: 生年月日
         email: メールアドレス
         password: パスワード
+
+      post:
+        id: ID
+        text: 投稿内容
+        created_at: 登録日時
+        updated_at: 更新日時
+
+      comment:
+        id: ID
+        text: コメント
+        created_at: 登録日時
+        updated_at: 更新日時

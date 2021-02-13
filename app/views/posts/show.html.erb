@@ -1,4 +1,6 @@
 <div class="post_wrapper">
+<% breadcrumb :show_post, @post %>
+<%= render 'layouts/breadcrumbs' %>
   <div class="post_wrapper__header">
     <h3>
       <span>投稿詳細</span>
@@ -34,13 +36,14 @@
                 <% if user_signed_in? && current_user.already_liked?(@post) %>
                   <%= link_to post_like_path(id: @post.id, post_id: @post.id), class: "post_action_btn post_liked", method: :delete do %>
                     <i class="fas fa-thumbs-up"></i>
+                      <span><%= @post.likes.count %>&nbsp;イイね！</span>
                   <% end %>
                 <% else %>
                   <%= link_to post_likes_path(@post), class: "post_action_btn", method: :post do %>
                     <i class="far fa-thumbs-up"></i>
+                      <span><%= @post.likes.count %>&nbsp;イイね！</span>
                   <% end %>
                 <% end %>
-                  <span><%= @post.likes.count %>&nbsp;イイね！</span>
               <%# <i class="far fa-heart"></i>
               <span>いいね数</span> %>
             </li>

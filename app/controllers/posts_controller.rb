@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update ,:destroy, :show]
   
   def index
-    @posts = Post.includes(:user).order(updated_at: "DESC", id: "DESC")
+    @posts = Post.includes(:user).order(updated_at: "DESC", id: "DESC").page(params[:page]).per(5)
   end
 
   def new

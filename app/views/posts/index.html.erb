@@ -1,7 +1,7 @@
 <div class="post_wrapper">
   <div class="post_wrapper__header">
     <h3>
-      <span>投稿一覧</span>
+      <span class="h3 title">投稿一覧</span>
     </h3>
   </div>
   <div class="post_wrapper__content">
@@ -15,7 +15,7 @@
           <div class="post">
             <div class="post__top_box">
               <div class="post__top_box__name">
-                <span>投稿者：<%= post.user.name %></span>
+                <span>投稿者：<span class="text-primary"><%= post.user.name %></span></span>
               </div>
               <div class="post__top_box__time">
                 <span>投稿日時：<%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>

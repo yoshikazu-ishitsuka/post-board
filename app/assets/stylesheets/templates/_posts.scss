@@ -149,6 +149,7 @@
           font-size: $font_size_content_detail;
           & span {
             white-space: pre-wrap;
+            word-wrap: break-word;
           }
         }
         &__bottom_box {

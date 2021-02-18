@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(post_params)
     if @post.save
-      redirect_to root_path, notice: "投稿が完了しました"
+      redirect_to root_path, alert: "投稿が完了しました"
     else
       render :new
     end
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_url, flash: { notice: '編集が完了しました' }
+      redirect_to posts_url, flash: { alert: '編集が完了しました' }
     else
       render :edit
     end

@@ -8,7 +8,7 @@ CRUD機能を使用した掲示板アプリです。スレッドごとにコメ�
 https://post-board-0217.herokuapp.com/
 
 # QR Code
-<a href="https://gyazo.com/934695585d8d229f6cee028065ff9fd7"><img src="https://i.gyazo.com/934695585d8d229f6cee028065ff9fd7.png" alt="Image from Gyazo" width="388"/></a>
+<a href="https://gyazo.com/6df50cd2a3706f6b14dfcd8663db10cf"><img src="https://i.gyazo.com/6df50cd2a3706f6b14dfcd8663db10cf.png" alt="Image from Gyazo" width="375"/></a>
 
 # DEMO(デモ画面)
 [![Image from Gyazo](https://i.gyazo.com/5c3ca9071cddd90c34dbfb936fd2cfa3.gif)](https://gyazo.com/5c3ca9071cddd90c34dbfb936fd2cfa3)

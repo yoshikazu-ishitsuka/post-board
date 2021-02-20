@@ -3,7 +3,7 @@
   height: 100%;
   margin: 0 auto;
   & h3 {
-    text-align: center;
+    // text-align: center;
     font-size: $font_size_h3;
   }
   &__header {
@@ -12,6 +12,8 @@
       margin: 16px 48px 12px;
     }
     .title {
+      text-align: center;
+      // padding: 0 auto;
       // padding: 20px 100px;
       // border: 1px solid;
       // background-color: rgb(151, 240, 247);
@@ -68,7 +70,7 @@
         color: black;
       }
       & h4 {
-        text-align: center;
+        // text-align: center;
       }
       .post {
         margin-bottom: 12px;

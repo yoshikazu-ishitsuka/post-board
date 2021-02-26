@@ -43,6 +43,9 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'spring-commands-rspec'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  # gem 'capybara-webkit', '>= 1.15.1'
 end
 
 group :development do

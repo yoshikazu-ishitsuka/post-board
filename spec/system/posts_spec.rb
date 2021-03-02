@@ -84,7 +84,7 @@ RSpec.describe "新規投稿機能", type: :system do
     before do
       @user = FactoryBot.create(:user)
       @user2 = FactoryBot.create(:user)
-      @post = FactoryBot.create(:post)
+      @post = FactoryBot.create(:post) ### createにするとその時点でトップページに作られている
     end
 
     context '投稿の編集が出来る時' do
@@ -216,6 +216,140 @@ RSpec.describe "新規投稿機能", type: :system do
         sign_in(@user2)
         # 編集ボタンが無いことを確認する
         expect(page).to have_no_content('編集')
+      end
+    end
+  end
+# =end
+
+  describe "投稿削除機能", type: :system do
+    before do
+      @user = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @post = FactoryBot.build(:post)
+    end
+
+    context '投稿削除が出来る時' do
+      it 'ログインして新規投稿をすれば削除が出来る' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # 新規投稿ページへ遷移する
+        visit new_post_path
+        # 新規投稿の文字が表示されていることを確認する
+        expect(page).to have_content('新規投稿')
+        # 投稿内容を入力する
+        post = "これを削除します"
+        # id = @post.id
+        fill_in 'post_text', with: post
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Post.count }.by(1)
+        # トップページに遷移したことを確認する
+        expect(current_path).to eq root_path
+        # 新規投稿の文字が無いことを確認する。投稿一覧の文字が表示されていることを確認する
+        expect(page).to have_no_content('新規投稿')
+        expect(page).to have_content('投稿一覧')
+        # 投稿した内容が表示されていることを確認する
+        expect(page).to have_content(post)
+        # 投稿したスレッドに削除リンクがあることを確認する
+        expect(page).to have_content('削除')
+        # 削除リンクをクリックする
+        click_link '削除'
+        # 削除モーダルウインドウが表示されたことを確認する
+        expect(page).to have_content('本当に削除して良いですか？')
+        # 削除ボタンをクリックしたらPostモデルのカウントが1減っていることを確認する
+        expect{
+          click_button '削除'
+        }.to change { Post.count }.by(-1)
+        # トップページへ遷移したことを確認する
+        expect(current_path).to eq "/posts"
+        # 削除した投稿が無いことを確認する
+        expect(page).to have_no_content(post)
+      end
+    end
+
+    context '投稿削除が出来ない時' do
+      it 'ログインしていないと投稿の削除が出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # 新規投稿ページへ遷移する
+        visit new_post_path
+        # 新規投稿の文字が表示されていることを確認する
+        expect(page).to have_content('新規投稿')
+        # 投稿内容を入力する
+        post = @post.text
+        # id = @post.id
+        fill_in 'post_text', with: post
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Post.count }.by(1)
+        # トップページに遷移したことを確認する
+        expect(current_path).to eq root_path
+        # 新規投稿の文字が無いことを確認する。投稿一覧の文字が表示されていることを確認する
+        expect(page).to have_no_content('新規投稿')
+        expect(page).to have_content('投稿一覧')
+        # 投稿した内容が表示されていることを確認する
+        expect(page).to have_content(post)
+        # 投稿したスレッドに削除ボタンがあることを確認する
+        expect(page).to have_content('削除')
+        # ログアウトする
+        click_link 'ログアウト'
+        # 新規登録とログインのボタンが表示されていることを確認する
+        expect(page).to have_content('新規登録')
+        expect(page).to have_content('ログイン')
+        # 投稿したスレッドに削除ボタンが無いことを確認する
+        expect(page).to have_no_content('削除')
+
+      end
+
+      it '自分の投稿以外は削除出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # 新規投稿ページへ遷移する
+        visit new_post_path
+        # 新規投稿の文字が表示されていることを確認する
+        expect(page).to have_content('新規投稿')
+        # 投稿内容を入力する
+        post = @post.text
+        # id = @post.id
+        fill_in 'post_text', with: post
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Post.count }.by(1)
+        # トップページに遷移したことを確認する
+        expect(current_path).to eq root_path
+        # 新規投稿の文字が無いことを確認する。投稿一覧の文字が表示されていることを確認する
+        expect(page).to have_no_content('新規投稿')
+        expect(page).to have_content('投稿一覧')
+        # 投稿した内容が表示されていることを確認する
+        expect(page).to have_content(post)
+        # 投稿したスレッドに削除ボタンがあることを確認する
+        expect(page).to have_content('削除')
+        # ログアウトする
+        click_link 'ログアウト'
+        # 新規登録とログインのボタンが表示されていることを確認する
+        expect(page).to have_content('新規登録')
+        expect(page).to have_content('ログイン')
+        # 投稿したスレッドに削除ボタンが無いことを確認する
+        expect(page).to have_no_content('削除')
+        # 投稿したユーザーとは別のユーザーでログインする
+        sign_in(@user2)
+        # 削除ボタンが無いことを確認する
+        expect(page).to have_no_content('削除')
       end
     end
   end

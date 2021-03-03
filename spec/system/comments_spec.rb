@@ -1,5 +1,5 @@
 require 'rails_helper'
-=begin
+# =begin
 
 RSpec.describe "コメント投稿機能", type: :system do
   before do
@@ -231,6 +231,131 @@ end
       end
     end
   end
-=end
+# =end
 
-  # end
+
+  describe "コメント削除機能", type: :system do
+    before do
+      @user = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @post = FactoryBot.create(:post)
+      @comment = FactoryBot.create(:comment)
+    end
+
+    context 'コメント削除が出来る時' do
+      it 'ログインしてコメントをすれば削除が出来る' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に削除のリンクがあることを確認する
+        expect(page).to have_link '削除'
+        # 削除リンクをクリックする
+        click_link '削除'
+        # 削除モーダルウインドウが表示されたことを確認する
+        expect(page).to have_content('本当に削除して良いですか？')
+        # 削除ボタンをクリックしたらPostモデルのカウントが1減っていることを確認する
+        expect{
+          click_button '削除'
+        }.to change { Comment.count }.by(-1)
+        # 同じ投稿詳細ページにいることを確認する
+        expect(current_path).to eq post_path(@post)
+        # 削除したコメントが無いことを確認する
+        expect(page).to have_no_content(@comment.text)
+      end
+    end
+
+    context '投稿削除が出来ない時' do
+      it 'ログインしていないとコメントの削除が出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に削除のリンクがあることを確認する
+        expect(page).to have_link '削除'
+        # ログアウトする
+        click_link 'ログアウト'
+        # 新規登録とログインのボタンが表示されていることを確認する
+        expect(page).to have_content('新規登録')
+        expect(page).to have_content('ログイン')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に削除のリンクが無いことを確認する
+        expect(page).to have_no_link '削除'
+      end
+
+      it '自分のコメント以外は削除出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に削除のリンクがあることを確認する
+        expect(page).to have_link '削除'
+        # ログアウトする
+        click_link 'ログアウト'
+        # 新規登録とログインのボタンが表示されていることを確認する
+        expect(page).to have_content('新規登録')
+        expect(page).to have_content('ログイン')
+        # コメントしたユーザーとは別のユーザーでログインする
+        sign_in(@user2)
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に削除のリンクが無いことを確認する
+        expect(page).to have_no_link '削除'
+      end
+    end
+  end

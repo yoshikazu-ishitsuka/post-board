@@ -1,5 +1,5 @@
 require 'rails_helper'
-# =begin
+=begin
 
 RSpec.describe "コメント投稿機能", type: :system do
   before do
@@ -91,6 +91,146 @@ RSpec.describe "コメント投稿機能", type: :system do
       expect(page).to have_content('コメントを（140文字以内で）入力してください。')
     end
   end
-# =end
-
 end
+
+
+  describe "コメント編集機能", type: :system do
+    before do
+      @user = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @post = FactoryBot.create(:post)
+      @comment = FactoryBot.create(:comment) ### createにするとその時点でトップページに作られている
+    end
+
+    context 'コメントの編集が出来る時' do
+      it 'ログインしていれば編集が出来る' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        # binding.pry
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に編集のリンクがあることを確認する
+        expect(page).to have_link '編集'
+        # 編集リンクをクリックする
+        click_link '編集'
+        # コメント編集ページに遷移したことを確認する
+        # binding.pry
+        expect(current_path).to eq "/posts/#{@post.id}/comments/#{@comment.id+1}/edit"
+        # expect(current_path).to eq edit_post_comment_path(@post.comments)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメント内容を編集する
+        edit_comment = "編集しました！"
+        fill_in "comment_text", with: edit_comment
+        # 送信ボタンを押してもCommentモデルのカウントが上がらないことを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(0)
+        # コメントが編集した内容に変更されていることを確認する
+        expect(page).to have_content(edit_comment)
+      end
+    end
+
+    context 'コメントの編集が出来ない時' do
+      it 'ログインしていないとコメントの編集が出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に編集のリンクがあることを確認する
+        expect(page).to have_link '編集'
+        # ログアウトする
+        click_link 'ログアウト'
+        # 新規登録とログインのボタンが表示されていることを確認する
+        expect(page).to have_content('新規登録')
+        expect(page).to have_content('ログイン')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に編集のリンクがないことを確認する
+        expect(page).to have_no_link '編集'
+      end
+
+      it '自分のコメント以外は編集が出来ない' do
+        # トップページに遷移する
+        visit root_path
+        # ログインする
+        sign_in(@user)
+        # 投稿するボタンがあることを確認する
+        expect(page).to have_content('投稿する')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメント内容を入力する
+        fill_in 'comment_text', with: @comment.text
+        # 送信ボタンを押すとCommentモデルのカウントが1上がることを確認する
+        expect {
+          find('input[name="commit"]').click
+        }.to change { Comment.count }.by(1)
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に編集のリンクがあることを確認する
+        expect(page).to have_link '編集'
+        # ログアウトする
+        click_link 'ログアウト'
+        # コメントしたユーザーとは別のユーザーでログインする
+        sign_in(@user2)
+        # 投稿するとログアウトの文字が表示されていることを確認する
+        expect(page).to have_content('投稿する')
+        expect(page).to have_content('ログアウト')
+        # スレッドがあることを確認する
+        expect(page).to have_content(@post.text)
+        # 投稿詳細ページに遷移する
+        visit post_path(@post)
+        # 投稿詳細の文字があることを確認する
+        expect(page).to have_content('投稿詳細')
+        # コメントした内容が表示されていることを確認する
+        expect(page).to have_content(@comment.text)
+        # コメントした内容に編集のリンクがないことを確認する
+        expect(page).to have_no_link '編集'
+      end
+    end
+  end
+=end
+
+  # end

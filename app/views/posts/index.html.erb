@@ -21,6 +21,11 @@
                 <span>投稿日時：<%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
               </div>
             </div>
+            <div class="post__index_tag">
+              <% post.tags.each do |tag| %>
+                <span class="badge badge-primary"><%= tag.name %></span>
+              <% end %>
+            </div>
             <div class="post__middle_box">
               <span><%= markdown(post.text).html_safe %></span>
             </div>

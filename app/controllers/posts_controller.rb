@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: [:edit, :update ,:destroy, :show]
-  
+
   def index
     @posts = Post.includes(:user).order(updated_at: "DESC", id: "DESC").page(params[:page]).per(5)
   end
@@ -49,6 +49,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:text).merge(user_id: current_user.id)
+    params.require(:post).permit(:text, tag_ids: []).merge(user_id: current_user.id)
   end
 end

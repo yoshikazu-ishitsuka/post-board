@@ -99,6 +99,9 @@
         }
         &__index_tag {
           margin: 1px 10px 20px 20px;
+          .badge-primary {
+            background-color: blue;
+          }
         }
         &__middle_box {
           padding: 8px 24px;

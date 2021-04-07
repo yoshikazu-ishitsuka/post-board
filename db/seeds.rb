@@ -11,6 +11,7 @@ if Rails.env == 'development'
     { name: '動画' },
     { name: 'お役立ち' },
     { name: 'ニュース' },
-    { name: '小ネタ' }
+    { name: '小ネタ' },
+    { name: 'プログラミング' }
   ])
 end

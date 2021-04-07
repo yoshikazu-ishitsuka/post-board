@@ -63,6 +63,16 @@
       }
     }
     // 投稿一覧
+    &__posts__searchForm {
+      // display: inline-block;
+      text-align: center;
+      margin-top: 20px;
+      // width: 50px;
+      .posts__select {
+        width: 200px;
+        display: inline-block;
+      }
+    }
     &__post_list {
       padding: 48px;
       & a {

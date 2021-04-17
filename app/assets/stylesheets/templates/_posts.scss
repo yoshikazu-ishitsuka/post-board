@@ -63,6 +63,16 @@
       }
     }
     // 投稿一覧
+    &__posts__searchForm {
+      // display: inline-block;
+      text-align: center;
+      margin-top: 20px;
+      // width: 50px;
+      .posts__select {
+        width: 200px;
+        display: inline-block;
+      }
+    }
     &__post_list {
       padding: 48px;
       & a {
@@ -86,6 +96,12 @@
           justify-content: space-between;
           padding: 16px 24px;
           color: $color_note;
+        }
+        &__index_tag {
+          margin: 1px 10px 20px 20px;
+          .badge-primary {
+            background-color: blue;
+          }
         }
         &__middle_box {
           padding: 8px 24px;

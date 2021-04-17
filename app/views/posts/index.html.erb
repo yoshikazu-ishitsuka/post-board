@@ -4,6 +4,16 @@
       <span class="h3">投稿一覧</span>
     </h3>
   </div>
+  <%= form_tag posts_path, method: :get, class: 'post_wrapper__content__posts__searchForm' do %>
+    <%= select_tag :tag_id,
+                  options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                  {
+                    prompt: 'タグで絞り込み',
+                    class: 'form-control posts__select',
+                    onchange: 'submit(this.form);'
+                  }
+    %>
+  <% end %>
   <div class="post_wrapper__content">
     <ul class="post_wrapper__content__post_list">
       <% if @posts.blank? %>
@@ -20,6 +30,11 @@
               <div class="post__top_box__time">
                 <span>投稿日時：<%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
               </div>
+            </div>
+            <div class="post__index_tag">
+              <% post.tags.each do |tag| %>
+                <span class="badge badge-primary"><%= tag.name %></span>
+              <% end %>
             </div>
             <div class="post__middle_box">
               <span><%= markdown(post.text).html_safe %></span>
